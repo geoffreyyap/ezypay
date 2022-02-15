@@ -18,7 +18,6 @@ public class SubscriptionController {
 	private SubscriptionService subscriptionService;
 	@PostMapping("/create")
 	public SubscriptionRespVO createSubscription(@RequestBody SubscriptionReqVO subscriptionReqVO) {
-		System.out.println(subscriptionReqVO);
 		return subscriptionService.createSubscription(subscriptionReqVO);
 	}
 }
