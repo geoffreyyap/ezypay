@@ -12,5 +12,4 @@ public class SubscriptionReqVO {
 	private int dateOfMonth;
 	private String startDate;
 	private String endDate;
-
 }

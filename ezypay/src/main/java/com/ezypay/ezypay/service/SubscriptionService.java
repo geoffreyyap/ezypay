@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ezypay.ezypay.model.SubscriptionReqVO;
 import com.ezypay.ezypay.model.SubscriptionRespVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class SubscriptionService {
 	
@@ -21,6 +24,7 @@ public class SubscriptionService {
 		subscriptionRespVO.setAmount(subscriptionReqVO.getAmount());
 		subscriptionRespVO.setSubscriptionType(subscriptionReqVO.getSubscriptionType());
 		subscriptionRespVO.setInvoiceDates(this.getInvoiceDates(subscriptionReqVO.getSubscriptionType(), subscriptionReqVO.getStartDate(), subscriptionReqVO.getEndDate()));
+		log.info("subscriptionRespVO value : {}", subscriptionRespVO);
 		return subscriptionRespVO;
 	}
 
@@ -29,10 +33,14 @@ public class SubscriptionService {
 		LocalDate startLocalDate = LocalDate.parse(startDate, myFormatObj);
 		LocalDate endLocalDate = LocalDate.parse(endDate, myFormatObj);
 		
+		log.info("startLocalDate : {}", startLocalDate);
+		log.info("endLocalDate : {}", endLocalDate);
+		
 		List<String> invoiceDates = new ArrayList<String>();
 		
 		if (subscriptionType.equalsIgnoreCase("DAILY")) {
 			invoiceDates.add(String.valueOf(startLocalDate.format(myFormatObj)));
+			return invoiceDates;
 		}
 		
 		if (subscriptionType.equalsIgnoreCase("WEEKLY")) {
@@ -45,6 +53,7 @@ public class SubscriptionService {
 				LocalDate newDate = startLocalDate.plusWeeks(1L);
 				invoiceDates.add(String.valueOf(newDate.format(myFormatObj)));
 			}
+			return invoiceDates;
 			
 		}
 		
@@ -57,6 +66,7 @@ public class SubscriptionService {
 				LocalDate newDate = startLocalDate.plusMonths(1L);
 				invoiceDates.add(String.valueOf(newDate.format(myFormatObj)));
 			}
+			return invoiceDates;
 			
 		}
 		
